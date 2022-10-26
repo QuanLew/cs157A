@@ -1,0 +1,171 @@
+.navbar {
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  z-index: 50;
+  width: 100%;
+  padding-top: 1rem;
+  padding-bottom: 0;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.logo {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  margin-left: 0;
+  padding-left: 4rem;
+}
+
+.initials p {
+  margin: 0 auto;
+  justify-content: center;
+  font-size: 27px;
+  color: black;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: 550;
+}
+
+.logo,
+.navbar_menu {
+  color: black;
+}
+
+.navbar_menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  margin-right: 0;
+  padding-right: 4rem;
+}
+
+.logo_title h2 {
+  font-size: 25px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  color: #dfa096;
+  margin-bottom: 0;
+  margin-top: 19px;
+}
+
+.logo_icon img {
+  margin-right: 8px;
+  margin-top: 0;
+  margin-bottom: 19px;
+}
+
+.logo_name p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.navbar_menu {
+  display: flex;
+  flex-direction: row;
+}
+
+.navbar_menu_items {
+  font-size: 20px;
+  font-weight: 300;
+  color: black;
+  margin-left: 2rem;
+}
+
+a {
+  text-decoration: none;
+  padding-bottom: 5px;
+  font-weight: 400;
+  color: black;
+}
+
+a::after {
+  content: "";
+  width: 0;
+  height: 1.5px;
+  background: #007029;
+  display: block;
+  margin: 5px auto;
+  transition: 0.5s;
+}
+
+a:hover {
+  color: #007029;
+}
+
+a:hover::after {
+  width: 70%;
+}
+
+a.active {
+  font-weight: 400;
+  color: #d1e2c0;
+}
+
+@media screen and (max-width: 550px) {
+  .logo {
+    padding-left: 2rem;
+  }
+  .navbar_menu {
+    padding-right: 2rem;
+  }
+  .logo_title h2 {
+    font-size: 18px;
+  }
+  .logo_name p {
+    font-size: 12px;
+  }
+  .navbar_menu_items p {
+    font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 428px) {
+  .logo {
+    padding-left: 2rem;
+  }
+  .navbar_menu {
+    padding-right: 2rem;
+  }
+  .logo_title h2 {
+    font-size: 15px;
+  }
+  .logo_name p {
+    font-size: 12px;
+  }
+  .navbar_menu_items p {
+    font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .logo {
+    padding-left: 0;
+    padding-bottom: 0.5rem;
+  }
+  .navbar {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .navbar_menu {
+    padding-right: 0;
+  }
+  .navbar_menu_items {
+    margin: auto 1rem;
+  }
+  .navbar_menu_items p {
+    font-size: 15px;
+    margin-bottom: 0;
+  }
+  .logo_title h2 {
+    font-size: 18px;
+  }
+  .logo_name p {
+    font-size: 14px;
+  }
+}

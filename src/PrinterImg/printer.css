@@ -1,0 +1,38 @@
+.printer_img {
+  position: relative;
+}
+
+.right,
+.left,
+.top,
+.bottom {
+  display: inline-block;
+}
+
+.right {
+  width: 17rem;
+  margin-top: 26rem;
+  margin-left: 5rem;
+  margin-right: 0rem;
+  z-index: 10;
+}
+
+.left {
+  margin-left: 20rem;
+  margin-top: 35rem;
+}
+
+.top {
+  margin-top: 18rem;
+  margin-left: 7rem;
+}
+
+.bottom {
+  width: 18rem;
+  margin-top: 45rem;
+}
+
+.left,
+.top {
+  width: 8rem;
+}
