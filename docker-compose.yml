@@ -1,0 +1,23 @@
+# work with 2 service that they are indepently of each other (backend and frontend)
+# version: "3.8"
+
+# services:
+#   docs:
+#     build:
+#       context: .
+#       dockerfile: Dockerfile
+#       target: dev
+#     ports:
+#       - 8000:3000
+#     volumes:
+#       - ./:/app
+#   cs157a:
+#     build: ./cs157a
+#     container_name: cs157a_c
+#     ports:
+#       - "3000:3000"
+#     #volumes:
+#     #- ./cs157a:/app
+#     #- .app/node_modules
+#     stdin_open: true
+#     tty: true
