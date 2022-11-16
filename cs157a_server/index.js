@@ -8,7 +8,7 @@ require("dotenv/config");
 
 const app = express();
 // parse request data content type application/x-www-form-rulencoded
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // parse request data content type application/json
 app.use(bodyParser.json());

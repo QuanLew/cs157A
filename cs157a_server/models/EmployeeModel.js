@@ -1,3 +1,4 @@
+//console.log("model_OUTSIDE");
 const pool = require("../config/db");
 
 class Employee {
@@ -25,6 +26,7 @@ Employee.getAllEmployees = (result) => {
 
 // create new employee
 Employee.createEmployee = async (employeeReqData, result) => {
+  //console.log("model_INSIDE");
   const fname = employeeReqData.fname;
   const lname = employeeReqData.lname;
   const email = employeeReqData.email;
@@ -36,11 +38,38 @@ Employee.createEmployee = async (employeeReqData, result) => {
   const values = [fname, lname, email, password, role];
   pool.query(qry, values, (err, res) => {
     if (err) {
-      //console.log("Error while inserting data");
-      console.log(err);
+      console.log("Error while inserting data");
       result(null, err);
     } else {
       console.log("Employee created successfully");
+      result(null, res);
+    }
+  });
+};
+
+// get employee by Name for Search Data by name
+Employee.getEmployeeByName = (first_name, result) => {
+  const qry = `SELECT * FROM Employees WHERE employeeFName = ?`;
+  const value = first_name;
+  pool.query(qry, value, (err, res) => {
+    if (err) {
+      console.log("Error while fetching employee by id", err);
+      result(null, err);
+    } else {
+      result(null, res);
+    }
+  });
+};
+
+// get employee by ID for update
+Employee.getEmployeeByID = (id, result) => {
+  const qry = "SELECT * FROM employees WHERE employeeID = ?";
+  const value = id;
+  pool.query(qry, value, (err, res) => {
+    if (err) {
+      console.log("Error while fetching employee by id", err);
+      result(null, err);
+    } else {
       result(null, res);
     }
   });
