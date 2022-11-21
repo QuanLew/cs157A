@@ -8,7 +8,7 @@ class Employee {
     this.lname = employee.lname;
     this.email = employee.email;
     this.password = employee.password;
-    this.role = employee.role;
+    this.role = employee.role; // for department
   }
 }
 
