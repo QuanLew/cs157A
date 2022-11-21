@@ -38,7 +38,7 @@ exports.createNewEmployee = (req, res) => {
   }
 };
 
-// get employee by Name for earch by Name
+// get employee by Name for search by Name
 exports.getEmployeeByName = (req, res) => {
   //console.log("get emp by id" + req.params.fname);
   EmployeeModel.getEmployeeByName(req.params.fname, (err, employee) => {
@@ -50,10 +50,38 @@ exports.getEmployeeByName = (req, res) => {
 
 // get employee by ID  for Update
 exports.getEmployeeByID = (req, res) => {
-  console.log("get emp by id: " + req.params.id);
+  //console.log("get emp by id: 123 " + req.params.id);
   EmployeeModel.getEmployeeByID(req.params.id, (err, employee) => {
     if (err) res.send(err);
     console.log("single employee data", employee);
     res.send(JSON.stringify({ status: 200, error: null, response: employee }));
+  });
+};
+
+// update employee
+exports.updateEmployee = (req, res) => {
+  const employeeReqData = new EmployeeModel(req.body);
+  console.log("employeeReqData update", employeeReqData);
+  // check null
+  if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
+    res.send(400).send({ success: false, message: "Please fill all fields" });
+  } else {
+    EmployeeModel.updateEmployee(
+      req.params.id,
+      employeeReqData,
+      (err, employee) => {
+        if (err) res.send(err);
+        res.json({ status: true, message: "Employee updated Successfully" });
+      }
+    );
+  }
+};
+
+// delete employee
+exports.deleteEmployee = (req, res) => {
+  //console.log("get id: " + req.params.id);
+  EmployeeModel.deleteEmployee(req.params.id, (err, employee) => {
+    if (err) res.send(err);
+    res.json({ success: true, message: "Employee deleted successully!" });
   });
 };

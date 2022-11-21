@@ -12,10 +12,16 @@ router.get("/display", employeeController.getEmployeeList);
 // create new employee
 router.post("/create", employeeController.createNewEmployee);
 
+// get ID for Update
+router.get("/searchRecord/:fname", employeeController.getEmployeeByName);
+
 // get employee by ID
 router.get("/:id", employeeController.getEmployeeByID);
 
-// get ID for Update
-router.get("/searchRecord/:fname", employeeController.getEmployeeByName);
+// update employee
+router.put("/:id", employeeController.updateEmployee);
+
+// delete employee
+router.delete("/:id", employeeController.deleteEmployee);
 
 module.exports = router;

@@ -3,6 +3,7 @@ const pool = require("../config/db");
 
 class Employee {
   constructor(employee) {
+    this.id = employee.id;
     this.fname = employee.fname;
     this.lname = employee.lname;
     this.email = employee.email;
@@ -68,6 +69,43 @@ Employee.getEmployeeByID = (id, result) => {
   pool.query(qry, value, (err, res) => {
     if (err) {
       console.log("Error while fetching employee by id", err);
+      result(null, err);
+    } else {
+      result(null, res);
+    }
+  });
+};
+
+// update employee
+Employee.updateEmployee = (id, employeeReqData, result) => {
+  const id_update = id;
+  const fname = employeeReqData.fname;
+  const lname = employeeReqData.lname;
+  const email = employeeReqData.email;
+  const password = employeeReqData.password;
+  const role = employeeReqData.role;
+
+  const qry =
+    "UPDATE employees SET employeeFName=?,employeeLName=?,employeeEmail=?,employeePassword=?,employeeRole=? WHERE employeeID = ?";
+  const values = [fname, lname, email, password, role, id_update];
+  pool.query(qry, values, (err, res) => {
+    if (err) {
+      console.log("Error while updating the employee");
+      result(null, err);
+    } else {
+      console.log("Employee updated successfully");
+      result(null, res);
+    }
+  });
+};
+
+// delete employee
+Employee.deleteEmployee = (id, result) => {
+  const qry = "DELETE FROM employees WHERE employeeID = ?";
+  const value = id;
+  pool.query(qry, value, (err, res) => {
+    if (err) {
+      console.log("Error while deleting the employee");
       result(null, err);
     } else {
       result(null, res);
