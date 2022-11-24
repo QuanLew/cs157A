@@ -14,10 +14,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors({ allowedHeaders: "Content-Type, Cache-Control" }));
 
-// import employee routes
-const employeeRoutes = require("./routes/employeeRoute.js");
-// create employee routes
-app.use("/api/v1/employee", employeeRoutes);
+// import routes
+const Routes = require("./routes/Routes.js");
+// create routes
+app.use("/api/v1", Routes);
 
 //DB connection
 // mongoose
@@ -32,7 +32,7 @@ app.use("/api/v1/employee", employeeRoutes);
 //     console.log(err);
 //   });
 
-const PORT = process.env.PORT || 3001; //backend routing port
+const PORT = process.env.PORT || 3306; //backend routing port
 
 app.listen(PORT, () => {
   console.log(`Your server is running on port ${PORT}`);

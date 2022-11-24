@@ -4,6 +4,7 @@ import Axios from "axios";
 import { NavLink } from "react-router-dom";
 import { FaSearchengin, FaEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { BiUserVoice } from "react-icons/bi";
 
 const EmployeeDetails = () => {
   const [data, setData] = useState([]);
@@ -15,10 +16,6 @@ const EmployeeDetails = () => {
     password: "",
     role: "", //working for which department
   });
-
-  // const refreshPage = () => {
-  //   window.location.reload();
-  // };
 
   //  Object Destructuring
   const { fname, lname, email, password, role } = user;
@@ -197,7 +194,7 @@ const EmployeeDetails = () => {
                   id="form1"
                   onChange={(e) => setSearch(e.target.value)}
                   class="form-control"
-                  placeholder="Search Employee Here"
+                  placeholder="Search Employee Name"
                   style={{ backgroundColor: "#ececec" }}
                 />
               </div>
@@ -258,9 +255,22 @@ const EmployeeDetails = () => {
                         <i
                           class="text-warning"
                           aria-hidden="true"
-                          style={{ fontSize: "20px" }}
+                          style={{ fontSize: "20px", marginRight: "10px" }}
                         >
                           <FaEdit />
+                        </i>
+                      </NavLink>
+                      {/* button watch detail*/}
+                      <NavLink
+                        className="mr-2"
+                        to={`/employee/editID/${data[index].employeeID}`}
+                      >
+                        <i
+                          class="text-info"
+                          aria-hidden="true"
+                          style={{ fontSize: "21px" }}
+                        >
+                          <BiUserVoice />
                         </i>
                       </NavLink>
                     </td>

@@ -10,6 +10,7 @@ import {
 } from "./NavbarElements";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFirefox } from "@fortawesome/free-brands-svg-icons";
+import CustomButton from "../components/customButton";
 
 const Navbar = () => {
   return (
@@ -23,10 +24,10 @@ const Navbar = () => {
           <NavLink to="/employee" activeStyle>
             Employees
           </NavLink>
-          <NavLink to="/services" activeStyle>
+          <NavLink to="/customer" activeStyle>
             Customers
           </NavLink>
-          <NavLink to="/contact-us" activeStyle>
+          <NavLink to="/machine" activeStyle>
             Machines
           </NavLink>
           <NavLink to="/account" activeStyle>
@@ -34,7 +35,9 @@ const Navbar = () => {
           </NavLink>
         </NavMenu>
         <NavBtn>
-          <NavBtnLink to="/signin">Sign In</NavBtnLink>
+          <NavBtnLink to="/signin">
+            <CustomButton />
+          </NavBtnLink>
         </NavBtn>
       </Nav>
     </>
