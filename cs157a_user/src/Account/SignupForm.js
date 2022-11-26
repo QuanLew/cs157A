@@ -8,22 +8,51 @@ const Signup = () => {
   const { switchToSignin } = useContext(AccountContext);
   const navigate = useNavigate();
 
-  const [fname, setFName] = useState("");
-  const [lname, setLName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [position, setPosition] = useState("");
+  const [data, setData] = useState([]);
+  const [user, setUser] = useState({
+    departmentName: "",
+    departmentNo: "",
+    email: "",
+    password: "",
+  });
 
-  const addEmployee = () => {
-    Axios.post("http://localhost:3001/addEmployee", {
-      fname: fname,
-      lname: lname,
-      email: email,
-      password: password,
-      role: position,
-    }).then(() => {
-      console.log("success");
-    });
+  //  Object Destructuring
+  const { departmentName, departmentNo, email, password } = user;
+  const onInputChange = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
+
+  // Insert Customer Records
+  const submitAccountRecord = async (e) => {
+    // prevent refresh
+    e.preventDefault();
+    try {
+      e.target.reset();
+      const res = await Axios.post(
+        "http://localhost:3001/api/v1/department/create",
+        user
+      );
+      if (res.status === 200) {
+        alert("Account Created Successfully");
+        setUser({
+          departmentName: "",
+          departmentNo: "",
+          email: "",
+          password: "",
+        });
+        navigate("/");
+      } else {
+        console.log(res.message);
+      }
+    } catch (err) {
+      console.log(err);
+      alert(
+        "Status " +
+          err.response.status +
+          " : " +
+          err.response.data.errors[0].msg
+      );
+    }
   };
 
   return (
@@ -52,7 +81,7 @@ const Signup = () => {
                 <div class="col-md-6 col-lg-7 d-flex align-items-center">
                   <div class="card-body p-4 p-lg-5 text-black">
                     {/*FORM CONTROL*/}
-                    <form>
+                    <form onSubmit={submitAccountRecord}>
                       <div class="d-flex align-items-center mb-3 pb-1">
                         <i
                           class="fas fa-print fa-2x me-3"
@@ -68,7 +97,7 @@ const Signup = () => {
                         Sign up your account
                       </h5>
 
-                      {/*First,Last Name Input*/}
+                      {/*Department's Name,Number Input*/}
                       <div class="row">
                         <div class="col-md-6 mb-4">
                           <div class="form-outline">
@@ -76,9 +105,9 @@ const Signup = () => {
                               type="text"
                               id="form3Example1"
                               class="form-control"
-                              onChange={(event) => {
-                                setFName(event.target.value);
-                              }}
+                              name="departmentName"
+                              value={departmentName}
+                              onChange={(e) => onInputChange(e)}
                             />
                             <label class="form-label" for="form3Example1">
                               Department
@@ -91,9 +120,9 @@ const Signup = () => {
                               type="text"
                               id="form3Example2"
                               class="form-control"
-                              onChange={(event) => {
-                                setLName(event.target.value);
-                              }}
+                              name="departmentNo"
+                              value={departmentNo}
+                              onChange={(e) => onInputChange(e)}
                             />
                             <label class="form-label" for="form3Example2">
                               Number of Department
@@ -108,9 +137,9 @@ const Signup = () => {
                           type="email"
                           id="form3Example3"
                           class="form-control"
-                          onChange={(event) => {
-                            setEmail(event.target.value);
-                          }}
+                          name="email"
+                          value={email}
+                          onChange={(e) => onInputChange(e)}
                         />
                         <label class="form-label" for="form3Example3">
                           Email address
@@ -123,9 +152,9 @@ const Signup = () => {
                           type="password"
                           id="form3Example4"
                           class="form-control"
-                          onChange={(event) => {
-                            setPassword(event.target.value);
-                          }}
+                          name="password"
+                          value={password}
+                          onChange={(e) => onInputChange(e)}
                         />
                         <label class="form-label" for="form3Example4">
                           Password
@@ -136,11 +165,7 @@ const Signup = () => {
                       <div class="pt-1 mb-4">
                         <button
                           class="btn btn-dark btn-lg btn-block"
-                          type="button"
-                          onClick={() => {
-                            addEmployee();
-                            navigate("/");
-                          }}
+                          type="submit"
                         >
                           Sign Up
                         </button>

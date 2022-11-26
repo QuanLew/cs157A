@@ -188,7 +188,7 @@ const EmployeeDetails = () => {
           <div class="col-sm-8">
             <h5 class="text-center  ml-4 mt-4  mb-5">View Records</h5>
             <div class="input-group mb-4 mt-3">
-              <div class="form-outline">
+              <div class="form-outline mt-1">
                 <input
                   type="text"
                   id="form1"
@@ -202,7 +202,13 @@ const EmployeeDetails = () => {
               <button
                 type="button"
                 onClick={searchRecords}
-                class="btn btn-success"
+                class="btn"
+                style={{
+                  padding: "5px 10px",
+                  fontSize: "20px",
+                  marginTop: "4px",
+                  backgroundColor: "#555e63",
+                }}
               >
                 <FaSearchengin style={{ color: "#ececec" }} />
               </button>

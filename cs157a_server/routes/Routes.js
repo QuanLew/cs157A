@@ -1,8 +1,11 @@
-//console.log("router_OUTSIDE");
+const departmentController = require("../controllers/DepartmentController");
 const employeeController = require("../controllers/EmployeeController");
 const customerController = require("../controllers/CustomerController");
+const machineController = require("../controllers/MachineController");
 const express = require("express");
 const router = express.Router();
+
+// ---------------DEPARTMENT------------------- //
 
 // ---------------EMPLOYEE------------------- //
 // get all employees
@@ -27,6 +30,20 @@ router.put("/employee/:id", employeeController.updateEmployee);
 router.delete("/employee/:id", employeeController.deleteEmployee);
 
 // ---------------MACHINE------------------- //
+// get all machine
+router.get("/machine/display", machineController.getMachineList);
+
+// create new machine
+router.post("/machine/create", machineController.createNewMachine);
+
+// get machine by ID for supporting update
+router.get("/machine/:id", machineController.getMachineByID);
+
+// delete employee
+router.delete("/machine/:id", machineController.deleteMachine);
+
+// update customer
+router.put("/machine/:id", machineController.updateMachine);
 
 // ---------------CUSTOMER------------------- //
 // get all customer
@@ -35,10 +52,16 @@ router.get("/customer/display", customerController.getCustomerList);
 // create new customer
 router.post("/customer/create", customerController.createNewCustomer);
 
-// get ID for searching customers
+// get ID for searching customers name
 router.get(
   "/customer/searchRecord/:data",
   customerController.getCustomerByName
+);
+
+// get ID for searching customers state
+router.get(
+  "/customer/searchRecord/:data",
+  customerController.getCustomerByState
 );
 
 // get customer by ID for supporting update
@@ -46,5 +69,8 @@ router.get("/customer/:id", customerController.getCustomerByID);
 
 // update customer
 router.put("/customer/:id", customerController.updateCustomer);
+
+// delete customer
+router.delete("/customer/:id", customerController.deleteCustomer);
 
 module.exports = router;

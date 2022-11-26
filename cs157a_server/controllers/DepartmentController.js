@@ -1,8 +1,8 @@
-const CustomerModel = require("../models/CustomerModel");
+const DepartmentModel = require("../models/DepartmentModel");
 
 //get all customer list
 exports.getCustomerList = (req, res) => {
-  CustomerModel.getAllCustomers((err, customers) => {
+  DepartmentModel.getAllDepartments((err, customers) => {
     if (err) throw err;
     res.send(customers);
   });

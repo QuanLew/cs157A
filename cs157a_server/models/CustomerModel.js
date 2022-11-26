@@ -85,6 +85,19 @@ Customer.getCustomerByName = (data, result) => {
   });
 };
 
+// get employee by State for Search Data by state
+Customer.getCustomerByState = (data, result) => {
+  const qry = `SELECT * FROM Customers WHERE State = ?`;
+  const value = data;
+  pool.query(qry, value, (err, res) => {
+    if (err) {
+      console.log("Error while fetching customer by id", err);
+      result(null, err);
+    } else {
+      result(null, res);
+    }
+  });
+};
 // get employee by ID for update
 Customer.getCustomerByID = (id, result) => {
   const qry = "SELECT * FROM Customers WHERE Customer_ID = ?";
@@ -123,12 +136,12 @@ Customer.updateCustomer = (id, customerReqData, result) => {
 };
 
 // delete employee
-Customer.deleteEmployee = (id, result) => {
-  const qry = "DELETE FROM employees WHERE employeeID = ?";
+Customer.deleteCustomer = (id, result) => {
+  const qry = "DELETE FROM Customers WHERE Customer_ID = ?";
   const value = id;
   pool.query(qry, value, (err, res) => {
     if (err) {
-      console.log("Error while deleting the employee");
+      console.log("Error while deleting the customer");
       result(null, err);
     } else {
       result(null, res);

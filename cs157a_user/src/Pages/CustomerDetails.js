@@ -4,10 +4,13 @@ import Axios from "axios";
 import { NavLink } from "react-router-dom";
 import { FaSearchengin, FaEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import "./index.scss";
 
 const CustomerDetails = () => {
   const [data, setData] = useState([]);
-  const [search, setSearch] = useState("");
+  const [searchOption, setSearchOption] = useState("");
+  const [search, setSearch] = useState(""); //not use
+  const [serachFilter, setSearchFilter] = useState("");
   const [user, setUser] = useState({
     name: "",
     address: "",
@@ -60,9 +63,8 @@ const CustomerDetails = () => {
           state: "",
           zipcode: "",
         });
-        console.log("success here" + res.message);
       } else {
-        console.log("statusss here " + res.message);
+        console.log(res.message);
       }
       fetchDatas();
     } catch (err) {
@@ -76,13 +78,15 @@ const CustomerDetails = () => {
     }
   };
 
-  // Search Records here
+  // Search Records here <- not use now
   const searchRecords = async () => {
-    alert(search);
+    //alert(search);
     try {
       if (search !== "") {
         const res = await Axios.get(
-          `http://localhost:3001/api/v1/customer/searchRecord/${search}`
+          searchOption === "state"
+            ? `http://localhost:3001/api/v1/customer/searchRecord/${searchOption}`
+            : `http://localhost:3001/api/v1/customer/searchRecord/${search}`
         );
         if (res.status === 200) {
           setData(res.data);
@@ -95,14 +99,13 @@ const CustomerDetails = () => {
     }
   };
 
-  // Delete Employee Record
+  // Delete Customer Record
   const deleteRecord = async (index) => {
-    const id = data[index].employeeID;
+    const id = data[index].Customer_ID;
     try {
       const res = await Axios.delete(
-        `http://localhost:3001/api/v1/employee/${id}`
+        `http://localhost:3001/api/v1/customer/${id}`
       );
-      console.log("go in side: " + id);
       if (res.status === 200) {
         fetchDatas();
       } else {
@@ -194,23 +197,70 @@ const CustomerDetails = () => {
           <div class="col-sm-8">
             <h5 class="text-center  ml-4 mt-4  mb-5">View Records</h5>
             <div class="input-group mb-4 mt-3">
-              <div class="form-outline">
+              <div class="form-outline mt-1">
                 <input
                   type="text"
                   id="form1"
-                  onChange={(e) => setSearch(e.target.value)}
+                  onChange={(e) => setSearchFilter(e.target.value)}
                   class="form-control"
-                  placeholder="Search Customer Name"
+                  placeholder="Search Customer Here"
                   style={{ backgroundColor: "#ececec" }}
                 />
+              </div>
+              {/*toggle choose opt for searching */}
+              <div class="normal-container">
+                <div class="smile-rating-container">
+                  <div class="smile-rating-toggle-container">
+                    <form class="submit-rating">
+                      <input
+                        id="meh"
+                        name="satisfaction"
+                        value="name"
+                        type="radio"
+                        onChange={(e) => {
+                          setSearchOption(e.target.value);
+                        }}
+                      />
+                      <input
+                        id="fun"
+                        name="satisfaction"
+                        value="state"
+                        type="radio"
+                        onChange={(e) => {
+                          setSearchOption(e.target.value);
+                        }}
+                      />
+                      <label for="meh" class="rating-label rating-label-meh">
+                        Name
+                      </label>
+                      <div class="smile-rating-toggle"></div>
+
+                      <div class="rating-eye rating-eye-left"></div>
+                      <div class="rating-eye rating-eye-right"></div>
+
+                      <div class="mouth rating-eye-bad-mouth"></div>
+
+                      <div class="toggle-rating-pill"></div>
+                      <label for="fun" class="rating-label rating-label-fun">
+                        State
+                      </label>
+                    </form>
+                  </div>
+                </div>
               </div>
               {/* button search */}
               <button
                 type="button"
                 onClick={searchRecords}
-                class="btn btn-success"
+                class="btn"
+                style={{
+                  padding: "5px 10px",
+                  fontSize: "20px",
+                  marginTop: "4px",
+                  backgroundColor: "#555e63",
+                }}
               >
-                <FaSearchengin style={{ color: "#ececec" }} />
+                <FaSearchengin style={{ color: "#f5deb3" }} />
               </button>
             </div>
             <table class="table table-hover table-striped table-bordered ml-4">
@@ -225,50 +275,63 @@ const CustomerDetails = () => {
                 </tr>
               </thead>
               <tbody>
-                {data.map((item, index) => (
-                  <tr>
-                    <td>{item.Customer_name}</td>
-                    <td>{item.Address}</td>
-                    <td>{item.City}</td>
-                    <td>{item.State}</td>
-                    <td>{item.Zip_code}</td>
-                    <td>
-                      {/* button delete*/}
-                      <span
-                        style={{ cursor: "pointer" }}
-                        className="mr-2"
-                        onClick={() => {
-                          const confirmBox = window.confirm(
-                            "Do you really want to delete " + item.Customer_name
-                          );
-                          if (confirmBox === true) {
-                            deleteRecord(index);
-                          }
-                        }}
-                      >
-                        <i
-                          class="text-danger"
-                          style={{ fontSize: "18px", marginRight: "10px" }}
+                {data
+                  .filter((item) => {
+                    return serachFilter.toLowerCase() === ""
+                      ? item
+                      : searchOption === "state"
+                      ? item.State.toLowerCase().includes(
+                          serachFilter.toLowerCase()
+                        )
+                      : item.Customer_name.toLowerCase().includes(
+                          serachFilter.toLowerCase()
+                        );
+                  })
+                  .map((item, index) => (
+                    <tr key={item.Customer_ID}>
+                      <td>{item.Customer_name}</td>
+                      <td>{item.Address}</td>
+                      <td>{item.City}</td>
+                      <td>{item.State}</td>
+                      <td>{item.Zip_code}</td>
+                      <td>
+                        {/* button delete*/}
+                        <span
+                          style={{ cursor: "pointer" }}
+                          className="mr-2"
+                          onClick={() => {
+                            const confirmBox = window.confirm(
+                              "Do you really want to delete " +
+                                item.Customer_name
+                            );
+                            if (confirmBox === true) {
+                              deleteRecord(index);
+                            }
+                          }}
                         >
-                          <RiDeleteBin6Line />
-                        </i>
-                      </span>
-                      {/* button edit*/}
-                      <NavLink
-                        className="mr-2"
-                        to={`/customer/editID/${data[index].Customer_ID}`}
-                      >
-                        <i
-                          class="text-warning"
-                          aria-hidden="true"
-                          style={{ fontSize: "20px", marginRight: "10px" }}
+                          <i
+                            class="text-danger"
+                            style={{ fontSize: "18px", marginRight: "10px" }}
+                          >
+                            <RiDeleteBin6Line />
+                          </i>
+                        </span>
+                        {/* button edit*/}
+                        <NavLink
+                          className="mr-2"
+                          to={`/customer/editID/${data[index].Customer_ID}`}
                         >
-                          <FaEdit />
-                        </i>
-                      </NavLink>
-                    </td>
-                  </tr>
-                ))}
+                          <i
+                            class="text-warning"
+                            aria-hidden="true"
+                            style={{ fontSize: "20px", marginRight: "10px" }}
+                          >
+                            <FaEdit />
+                          </i>
+                        </NavLink>
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>

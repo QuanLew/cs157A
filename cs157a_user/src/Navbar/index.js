@@ -30,12 +30,9 @@ const Navbar = () => {
           <NavLink to="/machine" activeStyle>
             Machines
           </NavLink>
-          <NavLink to="/account" activeStyle>
-            Signup
-          </NavLink>
         </NavMenu>
         <NavBtn>
-          <NavBtnLink to="/signin">
+          <NavBtnLink to="/account">
             <CustomButton />
           </NavBtnLink>
         </NavBtn>
