@@ -50,10 +50,10 @@ router.post("/machine/create", machineController.createNewMachine);
 // get machine by ID for supporting update
 router.get("/machine/:id", machineController.getMachineByID);
 
-// delete employee
+// delete machine
 router.delete("/machine/:id", machineController.deleteMachine);
 
-// update customer
+// update machine
 router.put("/machine/:id", machineController.updateMachine);
 
 // ---------------CUSTOMER------------------- //

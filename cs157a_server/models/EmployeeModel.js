@@ -64,7 +64,7 @@ Employee.getEmployeeByName = (first_name, result) => {
 
 // get employee by ID for update
 Employee.getEmployeeByID = (id, result) => {
-  const qry = "SELECT * FROM employees WHERE employeeID = ?";
+  const qry = "SELECT * FROM Employees WHERE employeeID = ?";
   const value = id;
   pool.query(qry, value, (err, res) => {
     if (err) {
@@ -86,7 +86,7 @@ Employee.updateEmployee = (id, employeeReqData, result) => {
   const role = employeeReqData.role;
 
   const qry =
-    "UPDATE employees SET employeeFName=?,employeeLName=?,employeeEmail=?,employeePassword=?,employeeRole=? WHERE employeeID = ?";
+    "UPDATE Employees SET employeeFName=?,employeeLName=?,employeeEmail=?,employeePassword=?,employeeRole=? WHERE employeeID = ?";
   const values = [fname, lname, email, password, role, id_update];
   pool.query(qry, values, (err, res) => {
     if (err) {
@@ -101,7 +101,7 @@ Employee.updateEmployee = (id, employeeReqData, result) => {
 
 // delete employee
 Employee.deleteEmployee = (id, result) => {
-  const qry = "DELETE FROM employees WHERE employeeID = ?";
+  const qry = "DELETE FROM Employees WHERE employeeID = ?";
   const value = id;
   pool.query(qry, value, (err, res) => {
     if (err) {
