@@ -1,7 +1,10 @@
 import React from "react";
 import "./WelcomePage.scss";
+import { useLocation } from "react-router-dom";
 
 const WelcomePage = () => {
+  const location = useLocation();
+  //alert("data pass: " + location.state.account);
   return (
     <div class="container_welcomepage">
       <div class="animation-container">

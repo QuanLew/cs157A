@@ -43,16 +43,17 @@ const AccountBox = () => {
         {active === "signup" && <Signup />}
       </div>
       {/*InnerContainer*/}
-      <div>
-        <BackDrop
-          initial={false}
-          animate={isExpanded ? "expanded" : "collapsed"}
-          variants={backdropVariants}
-          transition={expandingTransition}
-        />
-      </div>
     </AccountContext.Provider>
   );
 };
 
+/*InnerContainer*/
+// <div>
+//         <BackDrop
+//           initial={false}
+//           animate={isExpanded ? "expanded" : "collapsed"}
+//           variants={backdropVariants}
+//           transition={expandingTransition}
+//         />
+//       </div>
 export default AccountBox;

@@ -8,7 +8,6 @@ const Signup = () => {
   const { switchToSignin } = useContext(AccountContext);
   const navigate = useNavigate();
 
-  const [data, setData] = useState([]);
   const [user, setUser] = useState({
     departmentName: "",
     departmentNo: "",

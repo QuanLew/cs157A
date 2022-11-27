@@ -6,6 +6,17 @@ const express = require("express");
 const router = express.Router();
 
 // ---------------DEPARTMENT------------------- //
+// get all departments
+router.get("/department/display", departmentController.getDepartmentList);
+
+// create new department
+router.get("/department/create", departmentController.createNewDepartment);
+
+// check login account
+router.get(
+  "/department/account/:email/:password",
+  departmentController.getExistAccount
+);
 
 // ---------------EMPLOYEE------------------- //
 // get all employees

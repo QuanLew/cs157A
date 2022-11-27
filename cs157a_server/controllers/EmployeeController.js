@@ -21,7 +21,6 @@ exports.createNewEmployee = (req, res) => {
     !req.body.fname ||
     !req.body.lname ||
     !req.body.email ||
-    !req.body.email ||
     !req.body.password ||
     !req.body.role
   ) {

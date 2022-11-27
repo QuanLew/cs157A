@@ -1,10 +1,46 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import imgLogin from "../assets/SVG/loginImg.jpg";
 import { AccountContext } from "./AccountContext";
+import Axios from "axios";
 
 const Login = () => {
   const { switchToSignup } = useContext(AccountContext);
+  const navigate = useNavigate();
+
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
+
+  //  Object Destructuring
+  const { email, password } = user;
+  const onInputChange = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
+
+  // Insert Customer Records
+  const submitLoginAccount = async (e) => {
+    // prevent refresh
+    e.preventDefault();
+    try {
+      //e.target.reset();
+      const res = await Axios.get(
+        `http://localhost:3001/api/v1/department/account/${user.email}/${user.password}`
+      );
+      if (res.status === 200) {
+        setUser({
+          email: "",
+          password: "",
+        });
+        alert("LOGIN IS SUCCESSFUL!");
+        navigate("/", { state: { account: "login" } });
+      }
+    } catch (err) {
+      alert("EMAIL OR PASSWORD IS NOT FOUND!");
+      console.log(err);
+    }
+  };
 
   return (
     <section
@@ -32,7 +68,7 @@ const Login = () => {
                 <div class="col-md-6 col-lg-7 d-flex align-items-center">
                   <div class="card-body p-4 p-lg-5 text-black">
                     {/*FORM CONTROL*/}
-                    <form>
+                    <form onSubmit={submitLoginAccount}>
                       <div class="d-flex align-items-center mb-3 pb-1">
                         <i
                           class="fas fa-print fa-2x me-3"
@@ -54,6 +90,9 @@ const Login = () => {
                           type="email"
                           id="form3Example3"
                           class="form-control"
+                          name="email"
+                          value={email}
+                          onChange={(e) => onInputChange(e)}
                         />
                         <label class="form-label" for="form3Example3">
                           Email address
@@ -66,6 +105,9 @@ const Login = () => {
                           type="password"
                           id="form3Example4"
                           class="form-control"
+                          name="password"
+                          value={password}
+                          onChange={(e) => onInputChange(e)}
                         />
                         <label class="form-label" for="form3Example4">
                           Password
@@ -76,7 +118,7 @@ const Login = () => {
                       <div class="pt-1 mb-4">
                         <button
                           class="btn btn-dark btn-lg btn-block"
-                          type="button"
+                          type="submit"
                         >
                           Login
                         </button>
